@@ -18,6 +18,7 @@ run pip install numba
 run pip install ipython[notebook]
 run pip install seaborn
 run pip install pandas
+run pip install bokeh
 # I believe that export LLVM_CONFIG=owerpowerprewpojerwjoperw needs to be
 # in the session also when you run numba
 
