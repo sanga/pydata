@@ -22,6 +22,10 @@ run pip install bokeh
 # I believe that export LLVM_CONFIG=owerpowerprewpojerwjoperw needs to be
 # in the session also when you run numba
 
+run mkdir /var/notebooks
+workdir /var/notebooks
+volume /var/notebooks
+
 expose 8888
 
 entrypoint jupyter-notebook --ip='*'
