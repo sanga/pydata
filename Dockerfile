@@ -1,31 +1,27 @@
-from python:3.5
+from python:3.5.1
 maintainer tim@sampson.fi
 
-# basically the point is that it only works with llvm 3.6
+run echo deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7 main >> /etc/apt/sources.list
+run wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|apt-key add -
 run apt-get update
-run apt-get install -y wget dtrx liblapack-dev
-run wget http://llvm.org/releases/3.6.2/clang+llvm-3.6.2-x86_64-linux-gnu-ubuntu-15.04.tar.xz
-run mv clang+llvm-3.6.2-x86_64-linux-gnu-ubuntu-15.04.tar.xz  /opt
-workdir /opt
-run dtrx -n clang+llvm-3.6.2-x86_64-linux-gnu-ubuntu-15.04.tar.xz
-run rm clang+llvm-3.6.2-x86_64-linux-gnu-ubuntu-15.04.tar.xz
-run LLVM_CONFIG=/opt/clang+llvm-3.6.2-x86_64-linux-gnu-ubuntu-15.04/bin/llvm-config pip install llvmlite
-workdir /opt  # you can't pip install things when workdir is /
-run apt-get install -y fortran-compiler
+run apt-get install -y wget liblapack-dev fortran-compiler llvm-3.7-dev libedit-dev
+workdir /opt  # you can't pip install for the filesystem root
 run pip install --upgrade pip
+# llvmlite v0.9 has a bug so we need to grab from master
+env LLVM_CONFIG=/usr/lib/llvm-3.7/bin/llvm-config
+run pip install git+git://github.com/numba/llvmlite.git@dbc900d988380cb03924a144c72836a922580f3c#egg=llvmlite
 run pip install numpy
 run pip install numba
 run pip install ipython[notebook]
+run pip install scipy
+run pip install matplotlib
 run pip install seaborn
 run pip install pandas
 run pip install bokeh
-# I believe that export LLVM_CONFIG=owerpowerprewpojerwjoperw needs to be
-# in the session also when you run numba
 
 run mkdir /var/notebooks
 workdir /var/notebooks
-volume /var/notebooks
 
 expose 8888
 
-entrypoint jupyter-notebook --ip='*'
+entrypoint ["jupyter-notebook", "--ip='*'", "--no-browser"]
