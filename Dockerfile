@@ -19,9 +19,15 @@ run pip install seaborn
 run pip install pandas
 run pip install bokeh
 
+# Install Tini
+run curl -L https://github.com/krallin/tini/releases/download/v0.9.0/tini > tini && \
+    mv tini /usr/local/bin/tini && \
+    chmod +x /usr/local/bin/tini
+
 run mkdir /var/notebooks
 workdir /var/notebooks
 
 expose 8888
 
-entrypoint ["jupyter-notebook", "--ip='*'", "--no-browser"]
+entrypoint ["tini", "--"]
+cmd ["jupyter-notebook", "--ip='*'", "--no-browser"]
