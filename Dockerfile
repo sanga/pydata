@@ -18,6 +18,7 @@ run pip install matplotlib
 run pip install seaborn
 run pip install pandas
 run pip install bokeh
+run pip install geojson
 
 # Install Tini
 run curl -L https://github.com/krallin/tini/releases/download/v0.9.0/tini > tini && \
