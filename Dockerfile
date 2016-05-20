@@ -7,18 +7,21 @@ run apt-get update
 run apt-get install -y wget liblapack-dev fortran-compiler llvm-3.7-dev libedit-dev
 workdir /opt  # you can't pip install for the filesystem root
 run pip install --upgrade pip
-# llvmlite v0.9 has a bug so we need to grab from master
 env LLVM_CONFIG=/usr/lib/llvm-3.7/bin/llvm-config
-run pip install git+git://github.com/numba/llvmlite.git@dbc900d988380cb03924a144c72836a922580f3c#egg=llvmlite
+run pip install --egg git+git://github.com/numba/llvmlite@v0.11.0
 run pip install numpy
 run pip install numba
-run pip install ipython[notebook]
+run pip install notebook
+run pip install ipywidgets
 run pip install scipy
 run pip install matplotlib
 run pip install seaborn
 run pip install pandas
 run pip install bokeh
 run pip install geojson
+run pip install folium
+run pip install numexpr
+run pip install line-profiler
 
 # Install Tini
 run curl -L https://github.com/krallin/tini/releases/download/v0.9.0/tini > tini && \
