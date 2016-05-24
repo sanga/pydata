@@ -10,7 +10,7 @@ run pip install --upgrade pip
 env LLVM_CONFIG=/usr/lib/llvm-3.7/bin/llvm-config
 run pip install --egg git+git://github.com/numba/llvmlite@v0.11.0
 run pip install numpy
-run pip install numba
+run pip install numba==0.26
 run pip install notebook
 run pip install ipywidgets
 run pip install scipy
